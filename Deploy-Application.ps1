@@ -62,15 +62,15 @@ Try {
 	##* VARIABLE DECLARATION
 	##*===============================================
 	## Variables: Application
-	[string]$appVendor = ''
-	[string]$appName = ''
-	[string]$appVersion = ''
-	[string]$appArch = ''
+	[string]$appVendor = 'AE6TY'
+	[string]$appName = 'SimNEC'
+	[string]$appVersion = '1.2'
+	[string]$appArch = 'x64'
 	[string]$appLang = 'EN'
 	[string]$appRevision = '01'
 	[string]$appScriptVersion = '1.0.0'
-	[string]$appScriptDate = ''
-	[string]$appScriptAuthor = '<authorname>'
+	[string]$appScriptDate = '07/25/2022'
+	[string]$appScriptAuthor = 'Ryan McKenna'
 	##*===============================================
 	## Variables: Install Titles (Only set here to override defaults set by the toolkit)
 	[string]$installName = ''
@@ -118,7 +118,7 @@ Try {
 		[string]$installPhase = 'Pre-Installation'
 
 		## Show Welcome Message, close Internet Explorer if required, allow up to 3 deferrals, verify there is enough disk space to complete the install, and persist the prompt
-		Show-InstallationWelcome -CloseApps 'iexplore' -AllowDefer -DeferTimes 3 -CheckDiskSpace -PersistPrompt
+		Show-InstallationWelcome -CloseApps 'simnec' -CheckDiskSpace -PersistPrompt
 
 		## Show Progress Message (with the default message)
 		Show-InstallationProgress
@@ -139,6 +139,7 @@ Try {
 
 		## <Perform Installation tasks here>
 
+		Execute-Process -Path "$dirFiles\windows64-with-JRE.exe" -Parameters '-q' -PassThru
 
 		##*===============================================
 		##* POST-INSTALLATION
@@ -147,8 +148,6 @@ Try {
 
 		## <Perform Post-Installation tasks here>
 
-		## Display a message at the end of the install
-		If (-not $useDefaultMsi) { Show-InstallationPrompt -Message 'You can customize text to appear at the end of an install or remove it completely for unattended installations.' -ButtonRightText 'OK' -Icon Information -NoWait }
 	}
 	ElseIf ($deploymentType -ieq 'Uninstall')
 	{
@@ -158,7 +157,7 @@ Try {
 		[string]$installPhase = 'Pre-Uninstallation'
 
 		## Show Welcome Message, close Internet Explorer with a 60 second countdown before automatically closing
-		Show-InstallationWelcome -CloseApps 'iexplore' -CloseAppsCountdown 60
+		Show-InstallationWelcome -CloseApps 'simnec' -CloseAppsCountdown 60
 
 		## Show Progress Message (with the default message)
 		Show-InstallationProgress
